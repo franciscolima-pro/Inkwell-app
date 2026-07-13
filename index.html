@@ -1,37 +1,59 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Inkwell</title>
-
-    <link rel="stylesheet" href="./css/style.css">
-</head>
 <body>
-    <header>
+
+    <main class="container">
+
         <h1>Inkwell</h1>
-        <nav>
-            <ul>
-                <li><a href="#">Home</a></li>
-                <li><a href="#">About</a></li>
-                <li><a href="#">Contact</a></li>
-            </ul>
-        </nav>
-    </header>
-    <main id="app">
-        <section>
-            <h2>Welcome to Inkwell</h2>
-            <p>Your go-to platform for creative writing and storytelling.</p>
+
+        <section class="book-form">
+
+            <h2>Create Book</h2>
+
+            <form id="book-form">
+
+                <label for="title">Title</label>
+                <input
+                    id="title"
+                    type="text"
+                    placeholder="Book title"
+                    required
+                >
+
+                <label for="description">Description</label>
+                <textarea
+                    id="description"
+                    rows="4"
+                    placeholder="Book description"
+                ></textarea>
+
+                <label for="visibility">Visibility</label>
+
+                <select id="visibility">
+                    <option value="private">Private</option>
+                    <option value="public">Public</option>
+                </select>
+
+                <button type="submit">
+                    Save Book
+                </button>
+
+            </form>
+
         </section>
+
+        <hr>
+
         <section>
-            <h2>Latest Stories</h2>
-            <ul>
-                <li><a href="#">Story 1</a></li>
-                <li><a href="#">Story 2</a></li>
-                <li><a href="#">Story 3</a></li>
-            </ul>
+
+            <h2>Books</h2>
+
+            <div id="books-list">
+
+            </div>
+
         </section>
+
     </main>
-    <script src="script.js"></script>
+
+    <script type="module" src="/src/app.js"></script>
+
 </body>
-</html>
