@@ -1,5 +1,5 @@
 import {db} from '../config/firebase.js';
-import {collection, doc,  addDoc, getDoc, updateDoc, deleteDoc} from 'firebase/firestore';
+import {collection, doc,  addDoc, getDoc, updateDoc, deleteDoc, getDocs} from 'firebase/firestore';
 
 import Book from '../models/Book.js';
 
@@ -37,6 +37,22 @@ export default class BookService{
         }
 
         return null // Return null if the book does not exist
+    }
+
+    /**
+     * Retrieves all books stored in Firestore.
+     *
+     * returns {Promise<Book[]>} A list of Book objects.
+     */
+    async getAllBooks() {
+        // Reference to the "books" collection.
+        const booksCollection = collection(db, 'books');
+
+        // Retrieve every document from the collection.
+        const booksSnapshot = await getDocs(booksCollection);
+
+        // Convert each Firestore document into a Book model.
+        return booksSnapshot.docs.map(doc => Book.fromFirestore(doc));
     }
 
     async updateBook(book){

@@ -8,18 +8,32 @@ export default class BookController {
     constructor() {
         this.bookService = new BookService();
         this.bookView = new BookView();
+
+        // Stores the book currently being edited.
+        // Null means the form is in "create" mode.
+        this.editingBook = null;
     }
 
     // Start listening for the book form submission.
     init() {
         this.bookView.form.addEventListener(
             "submit",
-            this.handleCreateBook.bind(this)
+            this.handleSaveBook.bind(this)
         );
+
+        this.bookView.bindDeleteBook(
+            this.handleDeleteBook.bind(this)
+        );
+
+        this.bookView.bindEditBook(
+            this.handleEditBook.bind(this)
+        );
+
+        this.loadBooks();
     }
 
     // Handle the creation of a new book from the form data.
-    async handleCreateBook(event) {
+    async handleSaveBook(event) {
         event.preventDefault();
 
         // Get the current values from the form.
@@ -34,13 +48,70 @@ export default class BookController {
             authorId: "123456"
         });
 
-        // Save the new book through the service.
-        await this.bookService.createBook(book);
+        if (this.editingBook) {
+            // Keep the original Firestore document ID.
+            book.id = this.editingBook.id;
 
-        // Reset the form after a successful creation.
+            if (!confirm("Are you sure you want to update this book?")) {
+                return;
+            }
+
+            await this.bookService.updateBook(book);
+
+            this.editingBook = null;
+
+            console.log("Book updated successfully!", book);
+
+        } else {
+
+            // Save the new book through the service.
+            await this.bookService.createBook(book);
+
+            console.log("Book created successfully!", book);
+        }
+
+        // Reset the form after saving the book.
         this.bookView.clearForm();
 
-        console.log("Book created successfully!", book);
+        await this.loadBooks();
+    }
+
+    async loadBooks() {
+        const books = await this.bookService.getAllBooks();
+
+        this.bookView.renderBooks(books);
+    }
+
+    async handleDeleteBook(bookId) {
+
+        if (!bookId) {
+            console.error("Book ID is required for deletion.");
+            return;
+        }
+
+        if (!confirm("Are you sure you want to delete this book?")) {
+            return;
+        }
+
+        await this.bookService.deleteBook(bookId);
+
+        this.loadBooks();
+    }
+
+    async handleEditBook(book) {
+
+        if (!book) {
+            console.error("Book data is required for editing.");
+            return;
+        }
+
+        // Store the selected book.
+        this.editingBook = book;
+
+        // Fill the form with the book data.
+        this.bookView.fillForm(book);
+
+
     }
 
 }
