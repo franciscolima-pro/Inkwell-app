@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <h1>Book Details</h1>
+    <button id="back-button">Back to Home</button>
+
+    <main>
+        <div id="book-details">
+           <h2 id="book-title"></h2>
+
+            <p id="book-description"></p>
+
+            <small id="book-visibility"></small> 
+        </div>
+        <h2>Chapters</h2>
+        <div id="chapters-div">
+            <h3>New Chapter</h3>
+
+            <form id="chapter-form">
+
+                <input
+                    id="chapter-title"
+                    type="text"
+                    placeholder="Chapter title"
+                    required
+                >
+
+                <input
+                    id="chapter-order"
+                    type="number"
+                    min="1"
+                    value="1"
+                >
+
+                <button type="submit">
+                    Save Chapter
+                </button>
+
+            </form>
+        </div>
+        <div id="chapters-list">
+
+        </div>
+    </main>
+
+    <script type="module" src="/src/book.js"></script>
+</body>
+</html>

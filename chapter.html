@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chapter Details</title>
+
+    <link rel="stylesheet" href="/src/styles/style.css">
+</head>
+
+<body>
+
+    <button id="back-button">← Back to Book</button>
+
+    <h1 id="chapter-title"></h1>
+
+    <p id="chapter-order"></p>
+
+    <hr>
+
+    <h2>New Page</h2>
+
+    <form id="page-form">
+
+        <input
+            id="page-title"
+            type="text"
+            placeholder="Page title"
+            required
+        >
+
+        <input
+            id="page-order"
+            type="number"
+            placeholder="Order"
+            min="1"
+            required
+        >
+
+        <textarea
+            id="page-content"
+            placeholder="Write your page content..."
+            rows="10"
+            required
+        ></textarea>
+
+        <button type="submit">
+            Save Page
+        </button>
+
+    </form>
+
+    <hr>
+
+    <h2>Pages</h2>
+
+    <div id="pages-list"></div>
+
+    <script type="module" src="/src/chapter.js"></script>
+
+</body>
+
+</html>

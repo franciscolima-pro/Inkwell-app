@@ -58,13 +58,19 @@ export default class BookView {
             const actions = document.createElement("div");
             actions.classList.add("book-actions");
 
+            const openButton = document.createElement("button");
+
+            openButton.textContent = "Open";
+
             const editButton = document.createElement("button");
+
             editButton.textContent = "Edit";
 
             const deleteButton = document.createElement("button");
 
             deleteButton.textContent = "Delete";
 
+            actions.appendChild(openButton);
             actions.appendChild(editButton);
             actions.appendChild(deleteButton);
 
@@ -81,6 +87,11 @@ export default class BookView {
                 this.editHandler(book);
             });
 
+            openButton.addEventListener("click", () => {
+                this.openHandler(book.id);
+            });
+            
+
             this.booksList.appendChild(bookItem);
         });
     }
@@ -91,5 +102,9 @@ export default class BookView {
 
     bindEditBook(handler) {
         this.editHandler = handler;
+    }
+
+    bindOpenBook(handler) {
+        this.openHandler = handler;
     }
 }

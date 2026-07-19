@@ -29,6 +29,10 @@ export default class BookController {
             this.handleEditBook.bind(this)
         );
 
+        this.bookView.bindOpenBook(
+            this.handleOpenBook.bind(this)
+        );
+
         this.loadBooks();
     }
 
@@ -63,7 +67,9 @@ export default class BookController {
             console.log("Book updated successfully!", book);
 
         } else {
-
+            if (!confirm("Are you sure you want to create this book?")) {
+                return;
+            }
             // Save the new book through the service.
             await this.bookService.createBook(book);
 
@@ -113,5 +119,8 @@ export default class BookController {
 
 
     }
-
+    
+    handleOpenBook(bookId) {
+        window.location.href = `book.html?id=${bookId}`;
+    }
 }
