@@ -1,59 +1,68 @@
-<body>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="/src/css/style.css">
+</head>
+    <body>
 
-    <main class="container">
+        <main class="container">
 
-        <h1>Inkwell</h1>
+            <h1>Inkwell</h1>
 
-        <section class="book-form">
+            <section class="book-form">
 
-            <h2>Create Book</h2>
+                <h2>Create Book</h2>
 
-            <form id="book-form">
+                <form id="book-form">
 
-                <label for="title">Title</label>
-                <input
-                    id="title"
-                    type="text"
-                    placeholder="Book title"
-                    required
-                >
+                    <label for="title">Title</label>
+                    <input
+                        id="title"
+                        type="text"
+                        placeholder="Book title"
+                        required
+                    >
 
-                <label for="description">Description</label>
-                <textarea
-                    id="description"
-                    rows="4"
-                    placeholder="Book description"
-                ></textarea>
+                    <label for="description">Description</label>
+                    <textarea
+                        id="description"
+                        rows="4"
+                        placeholder="Book description"
+                    ></textarea>
 
-                <label for="visibility">Visibility</label>
+                    <label for="visibility">Visibility</label>
 
-                <select id="visibility">
-                    <option value="private">Private</option>
-                    <option value="public">Public</option>
-                </select>
+                    <select id="visibility">
+                        <option value="private">Private</option>
+                        <option value="public">Public</option>
+                    </select>
 
-                <button type="submit">
-                    Save Book
-                </button>
+                    <button type="submit">
+                        Save Book
+                    </button>
 
-            </form>
+                </form>
 
-        </section>
+            </section>
 
-        <hr>
+            <hr>
 
-        <section>
+            <section class="books-section">
 
-            <h2>Books</h2>
+                <h2>Books</h2>
 
-            <div id="books-list">
+                <div id="books-list" class="books-list">
 
-            </div>
+                </div>
 
-        </section>
+            </section>
 
-    </main>
+        </main>
 
-    <script type="module" src="/src/app.js"></script>
+        <script type="module" src="/src/app.js"></script>
 
-</body>
+    </body>
+</html>

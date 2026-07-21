@@ -4,50 +4,80 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
+
+    <link rel="stylesheet" href="/src/css/style.css">
 </head>
-<body>
-    <h1>Book Details</h1>
-    <button id="back-button">Back to Home</button>
+    <body>
 
-    <main>
-        <div id="book-details">
-           <h2 id="book-title"></h2>
+        <main class="container">
 
-            <p id="book-description"></p>
+            <button id="back-button">
+                ← Back to Home
+            </button>
 
-            <small id="book-visibility"></small> 
-        </div>
-        <h2>Chapters</h2>
-        <div id="chapters-div">
-            <h3>New Chapter</h3>
+            <section class="book-details">
 
-            <form id="chapter-form">
+                <h1 id="book-title"></h1>
 
-                <input
-                    id="chapter-title"
-                    type="text"
-                    placeholder="Chapter title"
-                    required
-                >
+                <p id="book-description"></p>
 
-                <input
-                    id="chapter-order"
-                    type="number"
-                    min="1"
-                    value="1"
-                >
+                <small id="book-visibility"></small>
 
-                <button type="submit">
-                    Save Chapter
-                </button>
+            </section>
 
-            </form>
-        </div>
-        <div id="chapters-list">
+            <hr>
 
-        </div>
-    </main>
+            <section class="chapter-form-section">
 
-    <script type="module" src="/src/book.js"></script>
-</body>
+                <h2>Create Chapter</h2>
+
+                <form id="chapter-form">
+
+                    <label for="chapter-title">
+                        Title
+                    </label>
+
+                    <input
+                        id="chapter-title"
+                        type="text"
+                        placeholder="Chapter title"
+                        required
+                    >
+
+                    <label for="chapter-order">
+                        Order
+                    </label>
+
+                    <input
+                        id="chapter-order"
+                        type="number"
+                        min="1"
+                        value="1"
+                    >
+
+                    <button type="submit">
+                        Save Chapter
+                    </button>
+
+                </form>
+
+            </section>
+
+            <hr>
+
+            <section class="chapters-section">
+
+                <h2>Chapters</h2>
+
+                <div id="chapters-list" class="chapters-list">
+
+                </div>
+
+            </section>
+
+        </main>
+
+        <script type="module" src="/src/book.js"></script>
+
+    </body>
 </html>

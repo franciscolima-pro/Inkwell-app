@@ -6,22 +6,30 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Chapter Details</title>
 
-    <link rel="stylesheet" href="/src/styles/style.css">
+    <link rel="stylesheet" href="/src/css/style.css">
 </head>
 
 <body>
 
+    <main class="container">
+
     <button id="back-button">← Back to Book</button>
 
-    <h1 id="chapter-title"></h1>
+    <section class="chapter-details">
 
-    <p id="chapter-order"></p>
+        <h1 id="chapter-title"></h1>
+
+        <p id="chapter-order"></p>
+
+    </section>
 
     <hr>
 
-    <h2>New Page</h2>
+    <section class="page-form-section">
 
-    <form id="page-form">
+        <h2>New Page</h2>
+
+        <form id="page-form">
 
         <input
             id="page-title"
@@ -51,11 +59,13 @@
 
     </form>
 
-    <hr>
+        <hr>
 
-    <h2>Pages</h2>
+        <h2>Pages</h2>
 
-    <div id="pages-list"></div>
+        <div id="pages-list"></div>
+
+    </main>
 
     <script type="module" src="/src/chapter.js"></script>
 
