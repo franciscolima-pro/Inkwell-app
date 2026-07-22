@@ -42,7 +42,7 @@ export default class ChapterDetailsController {
         );
 
         this.chapterDetailsView.bindBackButton(() => {
-            window.history.back();
+            window.location.href = "book.html";
         });
     }
 

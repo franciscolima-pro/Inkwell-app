@@ -8,7 +8,8 @@ import {
     updateDoc,
     deleteDoc,
     query,
-    where
+    where,
+    orderBy
 } from "firebase/firestore";
 
 import Page from "../models/Page.js";
@@ -52,7 +53,8 @@ export default class PageService {
 
         const q = query(
             collection(db, "pages"),
-            where("chapterId", "==", chapterId)
+            where("chapterId", "==", chapterId),
+            orderBy("order")
         );
 
         const snapshot = await getDocs(q);

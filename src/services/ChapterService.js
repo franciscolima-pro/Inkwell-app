@@ -1,5 +1,5 @@
 import {db} from '../config/firebase.js';
-import {collection, doc, addDoc, getDoc, updateDoc, deleteDoc, getDocs, query, where} from 'firebase/firestore';
+import {collection, doc, addDoc, getDoc, updateDoc, deleteDoc, getDocs, query, where, orderBy} from 'firebase/firestore';
 import Chapter from '../models/Chapter.js';
 
 export default class ChapterService {
@@ -24,7 +24,8 @@ export default class ChapterService {
         // Create a query to get chapters by bookId
         const q = query(
             collection(db, "chapters"),
-            where("bookId", "==", bookId)
+            where("bookId", "==", bookId),
+            orderBy("order")
         );
 
         const chaptersSnapshot = await getDocs(q);

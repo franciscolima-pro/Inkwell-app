@@ -475,3 +475,64 @@ button:hover {
     margin-top: 15px;
 
 }
+
+/* ===========================
+   Chapter Page - Responsive
+=========================== */
+
+@media (max-width: 768px) {
+
+    .container {
+
+        margin: 20px;
+        padding: 0;
+
+    }
+
+    .chapter-details,
+    .page-form-section,
+    .page-card {
+
+        padding: 18px;
+
+    }
+
+    #back-button {
+
+        width: 100%;
+
+        margin-bottom: 20px;
+
+    }
+
+    #page-form {
+
+        gap: 12px;
+
+    }
+
+    #page-form input,
+    #page-form textarea,
+    #page-form button {
+
+        width: 100%;
+
+    }
+
+    .page-card button {
+
+        width: 100%;
+
+        margin-right: 0;
+
+        margin-top: 10px;
+
+    }
+
+    .page-card button:not(:last-child) {
+
+        margin-bottom: 8px;
+
+    }
+
+}
