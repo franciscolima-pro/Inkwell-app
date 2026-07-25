@@ -1,8 +1,11 @@
-import Book from "../models/Book.js";
-import BookService from "../services/BookService.js";
-import BookView from "../views/BookView.js";
+import Book from "../models/Book";
+import BookService from "../services/BookService";
+import BookView from "../views/BookView";
 
 export default class BookController {
+    bookService: BookService;
+    bookView: BookView;
+    editingBook: Book | null;
 
     // Create the service and view used by the controller.
     constructor() {
@@ -15,7 +18,7 @@ export default class BookController {
     }
 
     // Start listening for the book form submission.
-    init() {
+    init(): void {
         this.bookView.form.addEventListener(
             "submit",
             this.handleSaveBook.bind(this)
@@ -37,7 +40,7 @@ export default class BookController {
     }
 
     // Handle the creation of a new book from the form data.
-    async handleSaveBook(event) {
+    async handleSaveBook(event: SubmitEvent): Promise<void> {
         event.preventDefault();
 
         // Get the current values from the form.
@@ -73,7 +76,6 @@ export default class BookController {
             // Save the new book through the service.
             await this.bookService.createBook(book);
 
-            console.log("Book created successfully!", book);
         }
 
         // Reset the form after saving the book.
@@ -82,13 +84,13 @@ export default class BookController {
         await this.loadBooks();
     }
 
-    async loadBooks() {
+    async loadBooks(): Promise<void> {
         const books = await this.bookService.getAllBooks();
 
         this.bookView.renderBooks(books);
     }
 
-    async handleDeleteBook(bookId) {
+    async handleDeleteBook(bookId: string): Promise<void> {
 
         if (!bookId) {
             console.error("Book ID is required for deletion.");
@@ -101,15 +103,15 @@ export default class BookController {
 
         await this.bookService.deleteBook(bookId);
 
-        this.loadBooks();
+        await this.loadBooks();
     }
 
-    async handleEditBook(book) {
+    async handleEditBook(book: Book): Promise<void> {
 
-        if (!book) {
-            console.error("Book data is required for editing.");
-            return;
-        }
+        // if (!book) {
+        //     console.error("Book data is required for editing.");
+        //     return;
+        // }
 
         // Store the selected book.
         this.editingBook = book;
@@ -120,7 +122,7 @@ export default class BookController {
 
     }
     
-    handleOpenBook(bookId) {
+    handleOpenBook(bookId: string): void{
         window.location.href = `book.html?id=${bookId}`;
     }
 }

@@ -1,9 +1,15 @@
-import BookService from "../services/BookService.js";
-import BookDetailsView from "../views/BookDetailsView.js";
-import ChapterService from "../services/ChapterService.js";
-import Chapter from "../models/Chapter.js";
+import BookService from "../services/BookService";
+import BookDetailsView from "../views/BookDetailsView";
+import ChapterService from "../services/ChapterService";
+import Chapter from "../models/Chapter";
+import Book from "../models/Book";
 
 export default class BookDetailsController {
+    bookService: BookService;
+    chapterService: ChapterService;
+    bookDetailsView: BookDetailsView;
+    currentBook: Book | null;
+    editingChapter: Chapter | null
 
     constructor() {
         this.bookService = new BookService();
@@ -14,10 +20,18 @@ export default class BookDetailsController {
         this.editingChapter = null;
     }
 
-    async init() {
+    async init(): Promise<void> {
         const bookId = new URLSearchParams(window.location.search).get("id");
 
+        if (!bookId) {
+            throw new Error("Book ID not found.");
+        }
+
         this.currentBook = await this.bookService.getBookById(bookId);
+
+        if (!this.currentBook) {
+            throw new Error("Book not found.");
+        }
 
         this.bookDetailsView.renderBookDetails(this.currentBook);
 
@@ -45,15 +59,19 @@ export default class BookDetailsController {
         );
     }
 
-    async handleSaveChapter(event) {
+    async handleSaveChapter(event: SubmitEvent): Promise<void> {
          event.preventDefault();
         
         // Get the current values from the form.
         const formData = this.bookDetailsView.getChapterFormData();
 
+        if (!this.currentBook) {
+            throw new Error("Current book not loaded.");
+        }
+
         // Build a new chapter object with the submitted data.
         const chapter = new Chapter({
-            bookId: this.currentBook.id,
+            bookId: this.currentBook.id!,
             title: formData.title,
             order: formData.order,
         });
@@ -82,8 +100,12 @@ export default class BookDetailsController {
         await this.loadChapters();
     }
 
-    async loadChapters() {
-        const chapters = await this.chapterService.getChaptersByBookId(this.currentBook.id);
+    async loadChapters(): Promise<void> {
+        if (!this.currentBook) {
+            throw new Error("Current book not loaded.");
+        }
+
+        const chapters = await this.chapterService.getChaptersByBookId(this.currentBook.id!);
 
         this.bookDetailsView.renderChapters(chapters);
     }
@@ -93,12 +115,12 @@ export default class BookDetailsController {
      *
      * param {string} chapterId - ID of the chapter to delete.
      */
-    async handleDeleteChapter(chapterId) {
+    async handleDeleteChapter(chapterId: string):Promise<void> {
 
-        if (!chapterId) {
-            console.error("Chapter ID is required.");
-            return;
-        }
+        // if (!chapterId) {
+        //     console.error("Chapter ID is required.");
+        //     return;
+        // }
 
         if (!confirm("Are you sure you want to delete this chapter?")) {
             return;
@@ -117,7 +139,7 @@ export default class BookDetailsController {
      *
      * param {Chapter} chapter - Chapter selected for editing.
      */
-    handleEditChapter(chapter) {
+    handleEditChapter(chapter: Chapter): void {
 
         if (!chapter) {
             console.error("Chapter is required.");
@@ -132,7 +154,7 @@ export default class BookDetailsController {
 
     }
 
-    handleOpenChapter(chapterId) {
+    handleOpenChapter(chapterId: string): void {
 
         window.location.href = `chapter.html?id=${chapterId}`;
 

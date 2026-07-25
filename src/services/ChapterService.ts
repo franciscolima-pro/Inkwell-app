@@ -1,9 +1,9 @@
-import {db} from '../config/firebase.js';
-import {collection, doc, addDoc, getDoc, updateDoc, deleteDoc, getDocs, query, where, orderBy} from 'firebase/firestore';
-import Chapter from '../models/Chapter.js';
+import {db} from '../config/firebase';
+import {collection, doc, addDoc, getDoc, updateDoc, deleteDoc, getDocs, query, where, orderBy, DocumentData} from 'firebase/firestore';
+import Chapter from '../models/Chapter';
 
 export default class ChapterService {
-    async createChapter(chapter){
+    async createChapter(chapter: Chapter): Promise<void>{
         if (!(chapter instanceof Chapter)) {
             throw new Error("The parameter must be a Chapter.");
         }
@@ -17,7 +17,7 @@ export default class ChapterService {
         console.log("Chapter created with ID: ", chapter.id);
     }
 
-    async getChaptersByBookId(bookId) {
+    async getChaptersByBookId(bookId: string): Promise<Chapter[]> {
         if (!bookId) {
             throw new Error("Book ID is required.");
         }
@@ -37,7 +37,7 @@ export default class ChapterService {
         return chapters;
     }
 
-    async getChapterById(chapterId) {
+    async getChapterById(chapterId: string): Promise<Chapter> {
         if (!chapterId) {
             throw new Error("Chapter ID is required.");
         }
@@ -52,7 +52,7 @@ export default class ChapterService {
         return Chapter.fromFirestore(chapterDoc);
     }
 
-    async deleteChapter(chapterId) {
+    async deleteChapter(chapterId: string): Promise<void> {
         if (!chapterId) {
             throw new Error("Chapter ID is required for deletion.");
         }
@@ -62,16 +62,19 @@ export default class ChapterService {
         await deleteDoc(docRef);
     }
 
-    async updateChapter(chapter) {
+    async updateChapter(chapter: Chapter): Promise<void> {
 
         if (!(chapter instanceof Chapter)) {
             throw new Error("The parameter must be a Chapter.");
         }
 
+        if (!chapter.id) {
+            throw new Error("Chapter ID is required.");
+        }
+
         const chapterRef = doc(db, "chapters", chapter.id);
 
-        await updateDoc(chapterRef, chapter.toFirestore());
+        await updateDoc(chapterRef, chapter.toFirestore() as DocumentData);
 
-        console.log("Chapter updated successfully:", chapter.id);
     }
 }

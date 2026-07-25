@@ -1,13 +1,45 @@
+import Book from "../models/Book";
+
 export default class BookView {
 
+    form: HTMLFormElement;
+    titleInput: HTMLInputElement;
+    descriptionInput: HTMLInputElement;
+    visibilitySelect: HTMLSelectElement;
+    booksList: HTMLUListElement;
+
+    deleteHandler!: (bookId: string) => void;
+    editHandler!: (book: Book) => void;
+    openHandler!: (bookId: string) => void;
+
     constructor() {
-        this.form = document.getElementById("book-form");
+        const form = document.getElementById("book-form");
 
-        this.titleInput = document.getElementById("title");
-        this.descriptionInput = document.getElementById("description");
-        this.visibilitySelect = document.getElementById("visibility");
+        const titleInput = document.getElementById("title");
+        const descriptionInput = document.getElementById("description");
+        const visibilitySelect = document.getElementById("visibility");
 
-        this.booksList = document.getElementById("books-list");
+        const booksList = document.getElementById("books-list");
+
+        if (
+            !form ||
+                !titleInput ||
+                !descriptionInput ||
+                !visibilitySelect ||
+                !booksList
+            ) {
+                throw new Error("Book view elements not found.");
+        }
+
+        this.form = form as HTMLFormElement;
+
+        this.titleInput = titleInput as HTMLInputElement;
+
+        this.descriptionInput = descriptionInput as HTMLInputElement;
+
+        this.visibilitySelect = visibilitySelect as HTMLSelectElement;
+
+        this.booksList = booksList as HTMLUListElement;
     }
 
     getFormData() {
@@ -18,7 +50,7 @@ export default class BookView {
         };
     }
 
-    clearForm() {
+    clearForm(): void {
 
         this.form.reset();
 
@@ -29,13 +61,13 @@ export default class BookView {
      *
      * param {Book} book - Book to edit.
      */
-    fillForm(book) {
+    fillForm(book: Book): void {
         this.titleInput.value = book.title;
-        this.descriptionInput.value = book.description;
-        this.visibilitySelect.value = book.visibility;
+        this.descriptionInput.value = book.description ?? "";
+        this.visibilitySelect.value = book.visibility ?? "Private";
     }
 
-    renderBooks(books){
+    renderBooks(books: Book[]): void{
         this.booksList.innerHTML = "";
 
         books.forEach(book => {
@@ -49,7 +81,7 @@ export default class BookView {
 
             const description = document.createElement("p");
 
-            description.textContent = book.description;
+            description.textContent = book.description ?? "";
 
             const visibility = document.createElement("small");
 
@@ -80,6 +112,9 @@ export default class BookView {
             bookItem.appendChild(actions);
             
             deleteButton.addEventListener("click", () => {
+                    if (!book.id) {
+                        return;
+                    }
                 this.deleteHandler(book.id);
             });
 
@@ -88,6 +123,9 @@ export default class BookView {
             });
 
             openButton.addEventListener("click", () => {
+                    if (!book.id) {
+                        return;
+                    }
                 this.openHandler(book.id);
             });
             
@@ -96,15 +134,15 @@ export default class BookView {
         });
     }
 
-    bindDeleteBook(handler) {
+    bindDeleteBook(handler: (bookId: string) => void): void {
         this.deleteHandler = handler;
     }
 
-    bindEditBook(handler) {
+    bindEditBook(handler: (book: Book) => void): void {
         this.editHandler = handler;
     }
 
-    bindOpenBook(handler) {
+    bindOpenBook(handler: (bookId: string) => void): void {
         this.openHandler = handler;
     }
 }

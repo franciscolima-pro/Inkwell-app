@@ -1,4 +1,30 @@
+import { DocumentSnapshot } from "firebase/firestore";
+
+interface ChapterData{
+        id?: string | null;
+        bookId: string;
+        title: string;
+        order?: number;
+        createdAt?: Date;
+        updatedAt?: Date
+}
+
+interface ChapterFirestoreData {
+    bookId: string;
+    title: string;
+    order: number;
+    createdAt: Date;
+    updatedAt: Date;
+}
+
 export default class Chapter {
+    id: string | null;
+    bookId: string;
+    title: string;
+    order: number;
+    createdAt: Date;
+    updatedAt: Date
+
     constructor({
         id = null,
         bookId,
@@ -6,7 +32,7 @@ export default class Chapter {
         order = 0,
         createdAt = new Date(),
         updatedAt = new Date()
-    }){
+    }:ChapterData ){
         this.id = id;
         this.bookId = bookId;
         
@@ -19,7 +45,7 @@ export default class Chapter {
     /**
      * Converts the Chapter object into a Firestore document.
      */
-    toFirestore() {
+    toFirestore(): ChapterFirestoreData {
         return{
             bookId: this.bookId,
             title: this.title,
@@ -31,8 +57,13 @@ export default class Chapter {
     /**
      * Creates a Chapter instance from a Firestore document.
      */
-    static fromFirestore(docSnapshot) {
+    static fromFirestore(docSnapshot: DocumentSnapshot): Chapter {
         const data = docSnapshot.data();
+
+        if (!data) {
+            throw new Error("Chapter document does not exist.");
+        }
+
         return new Chapter({
             id: docSnapshot.id,
             bookId: data.bookId,

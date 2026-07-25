@@ -23,7 +23,7 @@ export default class PageService {
      *
      * param {Page} page - Page to be saved.
      */
-    async createPage(page) {
+    async createPage(page: Page): Promise<void> {
 
         if (!(page instanceof Page)) {
             throw new Error("The parameter must be a Page.");
@@ -45,7 +45,7 @@ export default class PageService {
      * param {string} chapterId - Chapter identifier.
      * returns {Promise<Page[]>}
      */
-    async getPagesByChapterId(chapterId) {
+    async getPagesByChapterId(chapterId: string): Promise<Page[]> {
 
         if (!chapterId) {
             throw new Error("Chapter ID is required.");
@@ -69,7 +69,7 @@ export default class PageService {
      * param {string} pageId - Page identifier.
      * returns {Promise<Page|null>}
      */
-    async getPageById(pageId) {
+    async getPageById(pageId: string): Promise<Page|null> {
 
         if (!pageId) {
             throw new Error("Page ID is required.");
@@ -84,7 +84,6 @@ export default class PageService {
         }
 
         return null;
-
     }
 
     /**
@@ -92,11 +91,15 @@ export default class PageService {
      *
      * param {Page} page - Page to update.
      */
-    async updatePage(page) {
+    async updatePage(page: Page): Promise<void> {
 
         if (!(page instanceof Page)) {
             throw new Error("The parameter must be a Page.");
         }
+
+        if (!page.id) {
+        throw new Error("Chapter ID is required.");
+    }
 
         const pageRef = doc(db, "pages", page.id);
 
@@ -111,7 +114,7 @@ export default class PageService {
      *
      * param {string} pageId - Page identifier.
      */
-    async deletePage(pageId) {
+    async deletePage(pageId: string): Promise<void> {
 
         if (!pageId) {
             throw new Error("Page ID is required.");

@@ -4,10 +4,10 @@ import {collection, doc,  addDoc, getDoc, updateDoc, deleteDoc, getDocs} from 'f
 import Book from '../models/Book.js';
 
 export default class BookService{
-    async createBook(book) {
+    async createBook(book: Book): Promise<void> {
 
         // 1. Verifica se recebeu um Book
-        if (!(book instanceof Book)) {
+        if (!(book instanceof Book)) { // um tanto redundante com a verificação do TS,mas manteremos por enquanto
             throw new Error("The parameter must be a Book.");
         }
 
@@ -22,7 +22,7 @@ export default class BookService{
         console.log("Book created with ID: ", book.id);
     }
 
-    async getBookById(bookId) {
+    async getBookById(bookId: string): Promise<Book | null> {
         if (!bookId) {
             throw new Error("Book ID is required.");
         }
@@ -44,7 +44,7 @@ export default class BookService{
      *
      * returns {Promise<Book[]>} A list of Book objects.
      */
-    async getAllBooks() {
+    async getAllBooks(): Promise<Book[]> {
         // Reference to the "books" collection.
         const booksCollection = collection(db, 'books');
 
@@ -55,7 +55,7 @@ export default class BookService{
         return booksSnapshot.docs.map(doc => Book.fromFirestore(doc));
     }
 
-    async updateBook(book){
+    async updateBook(book: Book): Promise<void>{
         if (!(book instanceof Book)) {
             throw new Error("The parameter must be a Book.");
         }
@@ -67,11 +67,9 @@ export default class BookService{
         const docRef = doc(db, 'books', book.id);
 
         await updateDoc(docRef, book.toFirestore());
-
-        return book; // Return the updated book instance
     }
 
-    async deleteBook(bookId){
+    async deleteBook(bookId: string): Promise<void>{
         if (!bookId) {
             throw new Error("Book ID is required for deletion.");
         }

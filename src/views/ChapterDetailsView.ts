@@ -1,27 +1,81 @@
+import Chapter from "../models/Chapter";
+import Page from "../models/Page";
+
 export default class ChapterDetailsView {
+    backButton: HTMLButtonElement;
+
+    title: HTMLElement;
+    order: HTMLElement;
+
+    pageForm: HTMLFormElement;
+
+    pageTitleInput: HTMLInputElement;
+    pageOrderInput: HTMLInputElement;
+    pageContentInput: HTMLTextAreaElement;
+
+    pagesList: HTMLDivElement;
+
+
+    deleteHandler!: (pageId: string) => void;
+    editHandler!: (page: Page) => void;
+
 
     constructor() {
 
-        this.backButton = document.getElementById("back-button");
+        const backButton = document.getElementById("back-button");
 
-        this.title = document.getElementById("chapter-title");
-        this.order = document.getElementById("chapter-order");
+        const title = document.getElementById("chapter-title");
+        const order = document.getElementById("chapter-order");
 
-        this.pageForm = document.getElementById("page-form");
+        const pageForm = document.getElementById("page-form");
 
-        this.pageTitleInput = document.getElementById("page-title");
-        this.pageOrderInput = document.getElementById("page-order");
-        this.pageContentInput = document.getElementById("page-content");
+        const pageTitleInput = document.getElementById("page-title");
+        const pageOrderInput = document.getElementById("page-order");
+        const pageContentInput = document.getElementById("page-content");
 
-        this.pagesList = document.getElementById("pages-list");
+        const pagesList = document.getElementById("pages-list");
+
+
+        if (
+            !backButton ||
+            !title ||
+            !order ||
+            !pageForm ||
+            !pageTitleInput ||
+            !pageOrderInput ||
+            !pageContentInput ||
+            !pagesList
+        ) {
+            throw new Error("Chapter details elements not found.");
+        }
+
+
+        this.backButton = backButton as HTMLButtonElement;
+
+        this.title = title;
+
+        this.order = order;
+
+
+        this.pageForm = pageForm as HTMLFormElement;
+
+
+        this.pageTitleInput = pageTitleInput as HTMLInputElement;
+
+        this.pageOrderInput = pageOrderInput as HTMLInputElement;
+
+        this.pageContentInput = pageContentInput as HTMLTextAreaElement;
+
+
+        this.pagesList = pagesList as HTMLDivElement;
 
     }
 
-    fillPageForm(page) {
+    fillPageForm(page: Page): void {
 
         this.pageTitleInput.value = page.title;
 
-        this.pageOrderInput.value = page.order;
+        this.pageOrderInput.value = String(page.order);
 
         this.pageContentInput.value = page.content;
 
@@ -41,7 +95,7 @@ export default class ChapterDetailsView {
 
     }
 
-    clearPageForm() {
+    clearPageForm(): void {
 
         this.pageForm.reset();
 
@@ -52,7 +106,7 @@ export default class ChapterDetailsView {
      *
      * param {Page[]} pages
      */
-    renderPages(pages) {
+    renderPages(pages: Page[]): void {
 
         this.pagesList.innerHTML = "";
 
@@ -92,6 +146,9 @@ export default class ChapterDetailsView {
             pageItem.appendChild(deleteButton);
 
             deleteButton.addEventListener("click", () => {
+                if (!page.id) {
+                    return;
+                }
                 this.deleteHandler(page.id);
             });
 
@@ -109,7 +166,7 @@ export default class ChapterDetailsView {
      *
      * param {Chapter} chapter
      */
-    renderChapterDetails(chapter) {
+    renderChapterDetails(chapter: Chapter): void  {
 
         this.title.textContent = chapter.title;
 
@@ -117,7 +174,7 @@ export default class ChapterDetailsView {
 
     }
 
-    bindBackButton(handler) {
+    bindBackButton(handler: () => void): void {
 
         this.backButton.addEventListener("click", handler);
 
@@ -128,7 +185,7 @@ export default class ChapterDetailsView {
      *
      * param {Function} handler
      */
-    bindDeletePage(handler) {
+    bindDeletePage(handler: (pageId: string) => void): void {
         this.deleteHandler = handler;
     }
 
@@ -137,7 +194,7 @@ export default class ChapterDetailsView {
     *
     * param {Function} handler
     */
-    bindEditPage(handler) {
+    bindEditPage(handler: (page: Page) => void) {
         this.editHandler = handler;
     }
 

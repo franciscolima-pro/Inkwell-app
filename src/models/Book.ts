@@ -1,6 +1,31 @@
+import {
+    DocumentSnapshot,
+    QueryDocumentSnapshot,
+    DocumentData
+} from "firebase/firestore";
 
+interface BookData{
+    id?: string | null;
+    title: string;
+    description?: string;
+    authorId: string;
+    visibility?: string;
+    coverUrl?: string;
+    createdAt?: Date;
+    updatedAt?: Date
+}
 
 export default class Book {
+
+    id: string | null;
+    title: string;
+    description?: string;
+    authorId: string;
+    visibility?: string;
+    coverUrl?: string;
+    createdAt?: Date;
+    updatedAt?: Date
+
     // Create a new book with the provided data.
     constructor({
         id = null,
@@ -11,7 +36,7 @@ export default class Book {
         coverUrl = "",
         createdAt = new Date(),
         updatedAt = new Date()
-    }){
+    }: BookData){
         this.id = id;
         this.title = title;
         this.description = description;
@@ -25,7 +50,7 @@ export default class Book {
     }
 
     // Prepare the book data for Firestore storage.
-    toFirestore() {
+    toFirestore(): Omit<BookData, "id"> {
         return {
             title: this.title,
             description: this.description,
@@ -38,8 +63,12 @@ export default class Book {
     }
 
     // Build a Book instance from a Firestore document.
-    static fromFirestore(doc) {
+    static fromFirestore(doc: QueryDocumentSnapshot<DocumentData> | DocumentSnapshot<DocumentData>): Book {
         const data = doc.data();
+
+        if (!data) {
+            throw new Error("Book document does not exist.");
+        }
 
         return new Book({
             id: doc.id,

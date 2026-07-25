@@ -1,21 +1,74 @@
+import Book from "../models/Book";
+import Chapter from "../models/Chapter";
+
 export default class BookDetailsView {
+    title: HTMLElement;
+    description: HTMLElement;
+    visibility: HTMLElement;
+
+    backButton: HTMLButtonElement;
+
+    chaptersList: HTMLDivElement;
+
+    chapterForm: HTMLFormElement;
+
+    chapterTitleInput: HTMLInputElement;
+    chapterOrderInput: HTMLInputElement;
+
+
+    deleteHandler!: (chapterId: string) => void;
+    editHandler!: (chapter: Chapter) => void;
+    openHandler!: (chapterId: string) => void;
 
     constructor() {
-        this.title = document.getElementById("book-title");
 
-        this.description = document.getElementById("book-description");
+        const title = document.getElementById("book-title");
+        const description = document.getElementById("book-description");
+        const visibility = document.getElementById("book-visibility");
 
-        this.visibility = document.getElementById("book-visibility");
+        const backButton = document.getElementById("back-button");
 
-        this.backButton = document.getElementById("back-button");
+        const chaptersList = document.getElementById("chapters-list");
 
-        this.chaptersList = document.getElementById("chapters-list");
+        const chapterForm = document.getElementById("chapter-form");
 
-        this.chapterForm = document.getElementById("chapter-form");
+        const chapterTitleInput = document.getElementById("chapter-title");
 
-        this.chapterTitleInput = document.getElementById("chapter-title");
+        const chapterOrderInput = document.getElementById("chapter-order");
 
-        this.chapterOrderInput = document.getElementById("chapter-order");
+
+        if (
+            !title ||
+            !description ||
+            !visibility ||
+            !backButton ||
+            !chaptersList ||
+            !chapterForm ||
+            !chapterTitleInput ||
+            !chapterOrderInput
+        ) {
+            throw new Error("Book details elements not found.");
+        }
+
+
+        this.title = title;
+
+        this.description = description;
+
+        this.visibility = visibility;
+
+
+        this.backButton = backButton as HTMLButtonElement;
+
+        this.chaptersList = chaptersList as HTMLDivElement;
+
+        this.chapterForm = chapterForm as HTMLFormElement;
+
+
+        this.chapterTitleInput = chapterTitleInput as HTMLInputElement;
+
+        this.chapterOrderInput = chapterOrderInput as HTMLInputElement;
+
     }
 
     /**
@@ -33,25 +86,25 @@ export default class BookDetailsView {
      *
      * param {Chapter} chapter - Chapter to edit.
      */
-    fillChapterForm(chapter) {
+    fillChapterForm(chapter: Chapter): void{
 
         this.chapterTitleInput.value = chapter.title;
 
-        this.chapterOrderInput.value = chapter.order;
+        this.chapterOrderInput.value = String(chapter.order);
 
     }
 
-    clearChapterForm() {
+    clearChapterForm(): void {
         this.chapterForm.reset();
     }
 
-    renderBookDetails(book) {
+    renderBookDetails(book: Book): void {
         this.title.textContent = book.title;
-        this.description.textContent = book.description;
+        this.description.textContent = book.description ?? "";
         this.visibility.textContent = `Visibility: ${book.visibility}`;
     }
 
-    bindBackButton(handler) {
+    bindBackButton(handler: () => void): void {
         this.backButton.addEventListener("click", handler);
     }
 
@@ -60,7 +113,7 @@ export default class BookDetailsView {
      *
      * param {Chapter[]} chapters - List of chapters to display.
      */
-    renderChapters(chapters) {
+    renderChapters(chapters: Chapter[]): void {
         this.chaptersList.innerHTML = "";
 
         chapters.forEach(chapter => {
@@ -95,6 +148,9 @@ export default class BookDetailsView {
             chapterItem.appendChild(deleteButton);
 
             deleteButton.addEventListener("click", () => {
+                    if (!chapter.id) {
+                        return;
+                    }
                 this.deleteHandler(chapter.id);
             });
 
@@ -103,6 +159,9 @@ export default class BookDetailsView {
             });
 
             openButton.addEventListener("click", () => {
+                if (!chapter.id) {
+                    return;
+                }
                 this.openHandler(chapter.id);
             });
 
@@ -115,7 +174,7 @@ export default class BookDetailsView {
      *
      * param {Function} handler - Function called when a chapter is deleted.
      */
-    bindDeleteChapter(handler) {
+    bindDeleteChapter(handler: (chapterId: string) => void): void {
         this.deleteHandler = handler;
     }
 
@@ -124,7 +183,7 @@ export default class BookDetailsView {
      *
      * param {Function} handler - Function called when a chapter is selected for editing.
      */
-    bindEditChapter(handler) {
+    bindEditChapter(handler: (chapter: Chapter) => void): void {
         this.editHandler = handler;
     }
 
@@ -133,7 +192,7 @@ export default class BookDetailsView {
      *
      * param {Function} handler - Function called when a chapter is opened.
      */
-    bindOpenChapter(handler) {
+    bindOpenChapter(handler: (chapterId: string) => void) {
         this.openHandler = handler;
     }
 

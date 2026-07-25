@@ -1,9 +1,15 @@
-import ChapterService from "../services/ChapterService.js";
-import PageService from "../services/PageService.js";
-import ChapterDetailsView from "../views/ChapterDetailsView.js";
-import Page from "../models/Page.js";
+import ChapterService from "../services/ChapterService";
+import PageService from "../services/PageService";
+import ChapterDetailsView from "../views/ChapterDetailsView";
+import Page from "../models/Page";
+import Chapter from "../models/Chapter";
 
 export default class ChapterDetailsController {
+    chapterService: ChapterService;
+    pageService: PageService;
+    chapterDetailsView: ChapterDetailsView;
+    currentChapter: Chapter | null;
+    editingPage: Page | null;
 
     constructor() {
 
@@ -19,10 +25,18 @@ export default class ChapterDetailsController {
 
     }
     
-    async init() {
+    async init(): Promise<void> {
         const chapterId = new URLSearchParams(window.location.search).get("id");
 
+        if (!chapterId) {
+            throw new Error("Chapter ID not found");
+        }
+
         this.currentChapter = await this.chapterService.getChapterById(chapterId);
+
+        if (!this.currentChapter) {
+            throw new Error("Chapter not found.");
+        }
 
         this.chapterDetailsView.renderChapterDetails(this.currentChapter);
 
@@ -46,14 +60,18 @@ export default class ChapterDetailsController {
         });
     }
 
-    async handleSavePage(event) {
+    async handleSavePage(event: SubmitEvent): Promise<void> {
 
         event.preventDefault();
+
+        if (!this.currentChapter) {
+            throw new Error("Current chapter not loaded.");
+        }
 
         const formData = this.chapterDetailsView.getPageFormData();
 
         const page = new Page({
-            chapterId: this.currentChapter.id,
+            chapterId: this.currentChapter.id!,
             title: formData.title,
             content: formData.content,
             order: formData.order
@@ -85,7 +103,7 @@ export default class ChapterDetailsController {
 
     }
 
-    async handleDeletePage(pageId) {
+    async handleDeletePage(pageId: string): Promise<void> {
 
         if (!pageId) {
             console.error("Page ID is required.");
@@ -102,7 +120,7 @@ export default class ChapterDetailsController {
 
     }
 
-    handleEditPage(page) {
+    handleEditPage(page: Page): void {
 
         if (!page) {
             console.error("Page is required.");
@@ -118,10 +136,13 @@ export default class ChapterDetailsController {
     /**
      * Loads all pages that belong to the current chapter.
      */
-    async loadPages() {
+    async loadPages(): Promise<void> {
+        if (!this.currentChapter) {
+            throw new Error("Current chapter not loaded.");
+        }
 
         const pages = await this.pageService.getPagesByChapterId(
-            this.currentChapter.id
+            this.currentChapter.id!
         );
 
         this.chapterDetailsView.renderPages(pages);
