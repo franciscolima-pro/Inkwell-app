@@ -1,4 +1,4 @@
-import {db} from '../config/firebase.js';
+import {db} from '../config/firebase';
 import {collection, doc,  addDoc, getDoc, updateDoc, deleteDoc, getDocs} from 'firebase/firestore';
 
 import Book from '../models/Book.js';
