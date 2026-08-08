@@ -2,146 +2,263 @@
 
 ## Overview
 
-Inkwell App is a web application designed to create, organize, and manage digital books. The project allows users to create books, add chapters, and manage pages inside each chapter.
+Inkwell App is a web application for creating, organizing, and managing digital books.
 
-The main purpose of this project is to practice modern web development concepts, including TypeScript, object-oriented programming, modular architecture, DOM manipulation, and Firebase Firestore integration.
+Users can create books, add chapters to each book, and create pages inside individual chapters. The application provides CRUD functionality throughout the book hierarchy while maintaining a clean and reusable user interface.
 
-The application follows a structured architecture based on the separation of responsibilities between Models, Views, Services, and Controllers, improving maintainability and scalability.
+The project was originally developed using JavaScript and an MVC-inspired architecture. It was later migrated to TypeScript and, for this module, redesigned using React to practice component-based development, state management, routing, and modern frontend application architecture.
+
+The application uses Firebase Cloud Firestore as its database and React components to dynamically render and update the user interface.
 
 ## Features
 
 ### Book Management
-- Create books with title, description, and visibility settings
-- Edit existing books
-- Delete books
-- View book details
+
+* Create books with title, description, and visibility settings
+* Edit existing books
+* Delete books
+* View book details
+* Navigate between books and their chapters
 
 ### Chapter Management
-- Create chapters inside books
-- Define chapter ordering
-- Edit and delete chapters
-- Navigate between books and chapters
+
+* Create chapters inside books
+* Define chapter ordering
+* Edit existing chapters
+* Delete chapters
+* Open individual chapters
+* Navigate between books and chapters
 
 ### Page Management
-- Create pages inside chapters
-- Store page title, content, and order
-- Edit and delete pages
-- Display pages organized by chapter order
+
+* Create pages inside chapters
+* Define page ordering
+* Store page titles and content
+* Edit existing pages
+* Delete pages
+* Display pages organized within their chapters
+
+### User Interface
+
+* Responsive web interface
+* Reusable React components
+* Consistent styling across books, chapters, and pages
+* Interactive forms with validation
+* Navigation between application pages
+* Empty states for collections without content
+* Action buttons for opening, editing, and deleting content
 
 ### Data Management
-- Store application data using Firebase Firestore
-- Convert Firestore documents into TypeScript model instances
-- Organize database operations through service classes
+
+* Store application data using Firebase Cloud Firestore
+* Retrieve books, chapters, and pages asynchronously
+* Organize database operations through dedicated service classes
+* Maintain separate TypeScript models for application entities
 
 ## Tech Stack
 
-- TypeScript
-- HTML, CSS, and JavaScript APIs
-- Vite for development and build tooling
-- Firebase Firestore for database storage
-- ES Modules for code organization
+* React
+* TypeScript
+* React Router
+* HTML5
+* CSS3
+* Vite
+* Firebase Cloud Firestore
+* JavaScript APIs
+* ES Modules
+
+React is used to build the application's component-based user interface, while React Router manages navigation between books and chapters. Vite provides the development server and build tooling.
+
+Firebase Cloud Firestore is used as the application's NoSQL document database for storing and retrieving books, chapters, and pages.
 
 ## Architecture
 
-The project follows an MVC-inspired architecture:
+The application follows a component-based architecture inspired by the original MVC structure.
 
 ### Models
-Responsible for representing application entities and controlling data structure.
+
+Models define the structure and types of the application's main entities.
 
 Examples:
-- Book
-- Chapter
-- Page
 
-### Views
-Responsible for DOM manipulation and user interface updates.
+* `Book`
+* `Chapter`
+* `Page`
 
-Examples:
-- BookView
-- BookDetailsView
-- ChapterDetailsView
+### Components
 
-### Controllers
-Responsible for handling user actions and coordinating between views and services.
+Reusable React components are responsible for displaying application elements and handling user interactions.
 
 Examples:
-- BookController
-- BookDetailsController
-- ChapterDetailsController
+
+* `Header`
+* `BookCard`
+* `BookForm`
+* `ChapterCard`
+* `ChapterForm`
+* `PageCard`
+* `PageForm`
+
+### Pages
+
+Pages represent the main views of the React application and coordinate components, state, services, and navigation.
+
+Examples:
+
+* `BooksPage`
+* `BookDetailsPage`
+* `ChapterDetailsPage`
 
 ### Services
-Responsible for communication with Firebase Firestore.
+
+Services are responsible for communication with Firebase Cloud Firestore and encapsulate database operations.
 
 Examples:
-- BookService
-- ChapterService
-- PageService
+
+* `BookService`
+* `ChapterService`
+* `PageService`
+
+### Routing
+
+React Router is used to navigate between different parts of the application.
+
+Main routes include:
+
+* `/` — Books
+* `/books/:bookId` — Book details and chapters
+* `/chapters/:chapterId` — Chapter details and pages
 
 ## Project Structure
-```
+
+```text
 src/
-├── controllers/
-│   ├── BookController.ts
-│   ├── BookDetailsController.ts
-│   └── ChapterDetailsController.ts
+├── components/
+│   ├── Header.tsx
+│   ├── BookCard.tsx
+│   ├── BookForm.tsx
+│   ├── ChapterCard.tsx
+│   ├── ChapterForm.tsx
+│   ├── PageCard.tsx
+│   └── PageForm.tsx
+│
+├── pages/
+│   ├── BooksPage.tsx
+│   ├── BookDetailsPage.tsx
+│   └── ChapterDetailsPage.tsx
+│
 ├── models/
 │   ├── Book.ts
 │   ├── Chapter.ts
 │   └── Page.ts
+│
 ├── services/
 │   ├── BookService.ts
 │   ├── ChapterService.ts
 │   └── PageService.ts
-├── views/
-│   ├── BookView.ts
-│   ├── BookDetailsView.ts
-│   └── ChapterDetailsView.ts
+│
 ├── config/
 │   └── firebase.ts
-├── app.ts
-├── book.ts
-└── chapter.ts
+│
+├── css/
+│   └── style.css
+│
+├── App.tsx
+└── main.tsx
 ```
+
 ## Development Environment
 
 This project was developed using:
 
-- Visual Studio Code
-- Node.js and npm
-- Vite
-- TypeScript
-- Firebase
+* Visual Studio Code
+* Node.js and npm
+* React
+* TypeScript
+* Vite
+* Firebase
+* Git and GitHub
 
 ## Getting Started
 
-1. Install dependencies:
+### 1. Install dependencies
 
-   npm install
+```bash
+npm install
+```
 
-2. Start the development server:
+### 2. Start the development server
 
-   npm run dev
+```bash
+npm run dev
+```
 
-3. Open the local Vite URL in your browser.
+### 3. Open the application
+
+Open the local Vite URL displayed in the terminal.
+
+The application runs locally using Vite's development server.
+
+## Firebase Configuration
+
+The application requires a Firebase project with Cloud Firestore configured.
+
+The Firebase configuration is stored in:
+
+```text
+src/config/firebase.ts
+```
+
+For a production application, Firebase Authentication and appropriate Firestore Security Rules should be configured to protect database access. Firebase recommends using Authentication and Firestore Security Rules for access control in Web applications.
+
+## Learning Objectives
+
+This project was developed as a learning project to practice:
+
+* TypeScript
+* React
+* React components
+* React state management
+* React hooks
+* React Router
+* Form handling
+* Event handling
+* Asynchronous programming
+* Object-oriented programming
+* Modular application architecture
+* CRUD operations
+* Firebase Firestore
+* Responsive CSS
+* Component reuse
+* Separation of responsibilities
 
 ## Software Demo Video
 
-A demo video can be added here (optional).
+A demo video can be added here.
 
 ## Useful Websites
 
-- Vite Documentation - https://vitejs.dev/
-- Firebase Documentation - https://firebase.google.com/docs
-- TypeScript Documentation - https://www.typescriptlang.org/docs/
-- MDN Web Docs - https://developer.mozilla.org/
+* Vite Documentation
+* Firebase Firestore Documentation
+* TypeScript Documentation
+* React Documentation
+* React Router Documentation
+* MDN Web Docs
 
 ## Future Work
 
-- Migrate the application from static frontend to React framework
-- Implement dynamic page generation with React components
-- Replace Firebase Firestore with a backend database
-- Add user authentication with React and session management
-- Convert book, chapter, and page management to React state management
-- Implement form handling and validation with React hooks
-- Add routing for navigation between different views
-- Deploy the React application with a backend server
+Possible future improvements include:
+
+* Add user authentication
+* Associate books with individual users
+* Improve Firestore Security Rules
+* Add book cover images
+* Add a rich text editor for pages
+* Add search and filtering functionality
+* Add drag-and-drop chapter and page ordering
+* Add book sharing and public book discovery
+* Improve accessibility
+* Add automated tests using Jest or another testing framework
+* Add deployment configuration
+* Deploy the application to a production environment
+* Add real-time Firestore listeners for live updates

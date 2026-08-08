@@ -1,3 +1,26 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+
+:root{
+
+    --primary:#4f46e5;
+    --primary-hover:#4338ca;
+
+    --success:#10b981;
+    --warning:#f59e0b;
+    --danger:#ef4444;
+
+    --background:#f4f7fb;
+    --surface:#ffffff;
+
+    --border:#e5e7eb;
+
+    --text:#111827;
+    --text-light:#6b7280;
+
+    --radius:14px;
+
+}
+
 *{
     margin:0;
     padding:0;
@@ -5,193 +28,724 @@
 }
 
 body{
-    font-family:Arial, Helvetica, sans-serif;
-    background:#f5f5f5;
+
+    font-family:'Inter',sans-serif;
+
+    background:var(--background);
+
+    color:var(--text);
+
 }
 
-header{
-    padding:20px;
-    background:#222;
-    color:white;
+.container{
+
+    width:min(1200px,92%);
+
+    margin:50px auto;
+
 }
 
-main{
-    padding:30px;
+h1{
+
+    font-size:2.6rem;
+
+    margin-bottom:10px;
+
 }
 
-/* ===========================
-   Global Styles
-=========================== */
+h2{
 
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
+    font-size:1.4rem;
+
+    margin-bottom:20px;
+
 }
 
-body {
-    font-family: Arial, Helvetica, sans-serif;
-    background: #f5f7fb;
-    color: #333;
+p{
+
+    color:var(--text-light);
+
 }
 
-.container {
-    max-width: 900px;
-    margin: 40px auto;
-    padding: 20px;
+button{
+
+    cursor:pointer;
+
+    border:none;
+
+    border-radius:10px;
+
+    padding:11px 18px;
+
+    font-size:.95rem;
+
+    font-weight:600;
+
+    transition:.25s;
+
 }
 
-h1 {
-    text-align: center;
-    margin-bottom: 30px;
-}
+button:hover{
 
-h2 {
-    margin-bottom: 20px;
-}
+    transform:translateY(-2px);
 
-hr {
-    margin: 40px 0;
-}
-
-.book-form {
-    background: white;
-    padding: 24px;
-    border-radius: 10px;
-    box-shadow: 0 4px 12px rgba(0,0,0,.08);
-}
-
-.book-form form {
-    display: flex;
-    flex-direction: column;
-    gap: 12px;
-}
-
-label {
-    font-weight: bold;
 }
 
 input,
 textarea,
-select {
+select{
+
+    width:100%;
+
+    padding:12px 14px;
+
+    border:1px solid var(--border);
+
+    border-radius:10px;
+
+    font-size:15px;
+
+    font-family:inherit;
+
+    background:white;
+
+}
+
+input:focus,
+textarea:focus,
+select:focus{
+
+    outline:none;
+
+    border-color:var(--primary);
+
+    box-shadow:0 0 0 4px rgba(79,70,229,.15);
+
+}
+
+.page-subtitle{
+
+    margin-bottom:40px;
+
+    color:var(--text-light);
+
+}
+
+.dashboard{
+
+    display:grid;
+
+    grid-template-columns:350px 1fr;
+
+    gap:35px;
+
+    align-items:start;
+
+}
+
+@media(max-width:900px){
+
+    .dashboard{
+
+        grid-template-columns:1fr;
+
+    }
+
+}
+
+/* ---------- FORM CARD ---------- */
+
+.book-form-card{
+
+    background:white;
+
+    border:1px solid var(--border);
+
+    border-radius:18px;
+
+    padding:28px;
+
+    box-shadow:0 15px 40px rgba(15,23,42,.06);
+
+    position:sticky;
+
+    top:30px;
+
+}
+
+.book-form-card h2{
+
+    margin-bottom:25px;
+
+}
+
+.book-form{
+
+    display:flex;
+
+    flex-direction:column;
+
+    gap:22px;
+
+}
+
+.form-group{
+
+    display:flex;
+
+    flex-direction:column;
+
+    gap:8px;
+
+}
+
+.form-group label{
+
+    font-size:.9rem;
+
+    font-weight:600;
+
+    color:var(--text);
+
+}
+
+textarea{
+
+    resize:vertical;
+
+    min-height:120px;
+
+}
+
+.primary-button{
+
+    background:var(--primary);
+
+    color:white;
+
+}
+
+.primary-button:hover{
+
+    background:var(--primary-hover);
+
+}
+
+/* ==========================
+   BOOK CARD
+========================== */
+
+.books-section{
+
+    display:flex;
+    flex-direction:column;
+    gap:20px;
+
+}
+
+.book-card{
+
+    background:var(--surface);
+
+    border:1px solid var(--border);
+
+    border-radius:18px;
+
+    padding:24px;
+
+    transition:.25s;
+
+    box-shadow:0 10px 25px rgba(0,0,0,.04);
+
+}
+
+.book-card:hover{
+
+    transform:translateY(-4px);
+
+    box-shadow:0 20px 40px rgba(0,0,0,.08);
+
+}
+
+.book-header{
+
+    display:flex;
+
+    justify-content:space-between;
+
+    align-items:flex-start;
+
+    gap:20px;
+
+}
+
+.book-header h3{
+
+    margin-bottom:10px;
+
+    font-size:1.25rem;
+
+}
+
+.book-header p{
+
+    color:var(--text-light);
+
+    line-height:1.6;
+
+}
+
+.badge{
+
+    padding:6px 14px;
+
+    border-radius:999px;
+
+    font-size:.8rem;
+
+    font-weight:600;
+
+    text-transform:capitalize;
+
+}
+
+.badge.public{
+
+    background:#dcfce7;
+
+    color:#15803d;
+
+}
+
+.badge.private{
+
+    background:#e0e7ff;
+
+    color:#4338ca;
+
+}
+
+.book-actions{
+
+    margin-top:24px;
+
+    display:flex;
+
+    justify-content:flex-end;
+
+    gap:12px;
+
+}
+
+.open-btn{
+
+    background:var(--success);
+
+    color:white;
+
+}
+
+.open-btn:hover{
+
+    background:#059669;
+
+}
+
+.edit-btn{
+
+    background:var(--warning);
+
+    color:white;
+
+}
+
+.edit-btn:hover{
+
+    background:#d97706;
+
+}
+
+.delete-btn{
+
+    background:var(--danger);
+
+    color:white;
+
+}
+
+.delete-btn:hover{
+
+
+    background:#dc2626;
+
+}
+
+/* ==========================
+   APP HEADER
+========================== */
+
+.app-header {
 
     width: 100%;
 
-    padding: 12px;
+    background: rgba(255, 255, 255, 0.96);
 
-    border: 1px solid #dcdcdc;
+    border-bottom: 1px solid var(--border);
 
-    border-radius: 8px;
+    position: sticky;
 
-    font-size: 15px;
+    top: 0;
+
+    z-index: 100;
+
+    backdrop-filter: blur(10px);
+
 }
 
-button {
+.header-content {
 
-    cursor: pointer;
+    width: min(1200px, 92%);
 
-    padding: 12px;
+    min-height: 78px;
 
-    border: none;
+    margin: 0 auto;
 
-    border-radius: 8px;
+    display: flex;
 
-    background: #2563eb;
+    align-items: center;
+
+}
+
+.brand {
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 11px;
+
+    text-decoration: none;
+
+    color: var(--text);
+
+}
+
+.brand:hover {
+
+    transform: none;
+
+}
+
+.brand-icon {
+
+    width: 40px;
+
+    height: 40px;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    border-radius: 11px;
+
+    background: linear-gradient(
+        135deg,
+        #6366f1,
+        #4338ca
+    );
 
     color: white;
 
-    font-size: 15px;
+    font-size: 20px;
 
-    transition: .2s;
-}
-
-button:hover {
-
-    background: #1d4ed8;
+    box-shadow:
+        0 6px 15px rgba(79, 70, 229, .25);
 
 }
 
-.books-list {
+.brand-name {
+
+    font-size: 1.35rem;
+
+    font-weight: 700;
+
+    letter-spacing: -.5px;
+
+}
+
+.header-divider {
+
+    height: 34px;
+
+    width: 1px;
+
+    background: var(--border);
+
+    margin: 0 25px;
+
+}
+
+.header-info {
 
     display: flex;
 
     flex-direction: column;
 
-    gap: 16px;
+    gap: 3px;
 
 }
 
-.book-card {
+.header-title {
 
-    background: white;
+    font-size: .9rem;
 
-    padding: 20px;
+    font-weight: 600;
 
-    border-radius: 10px;
-
-    box-shadow: 0 3px 10px rgba(0,0,0,.08);
+    color: var(--text);
 
 }
 
-.book-card h3 {
+.header-subtitle {
 
-    margin-bottom: 10px;
+    font-size: .78rem;
 
-}
-
-.book-card p {
-
-    margin-bottom: 12px;
-
-    color: #666;
+    color: var(--text-light);
 
 }
 
-.book-card small {
+/* ==========================
+   HEADER RESPONSIVE
+========================== */
 
-    display: block;
+@media (max-width: 650px) {
 
-    margin-bottom: 16px;
+    .header-content {
 
-    color: #888;
-
-}
-
-.book-actions {
-
-    display: flex;
-
-    gap: 10px;
-
-    margin-top: 10px;
-
-}
-
-@media (max-width: 768px) {
-
-    .container {
-
-        margin: 20px;
-
-        padding: 0;
+        min-height: 68px;
 
     }
 
-    .book-actions {
+    .header-divider,
+    .header-info {
+
+        display: none;
+
+    }
+
+}
+
+/* ==========================
+   BACK BUTTON
+========================== */
+
+.back-button {
+
+    display: inline-flex;
+
+    align-items: center;
+
+    gap: 8px;
+
+    margin-bottom: 30px;
+
+    padding: 10px 16px;
+
+    background: white;
+
+    color: var(--text);
+
+    border: 1px solid var(--border);
+
+    border-radius: 10px;
+
+    font-size: .9rem;
+
+    font-weight: 600;
+
+    box-shadow: 0 4px 12px rgba(15, 23, 42, .04);
+
+}
+
+.back-button:hover {
+
+    background: #f8fafc;
+
+    border-color: #cbd5e1;
+
+    transform: translateX(-2px);
+
+}
+
+/* ==========================
+   DETAILS HERO
+========================== */
+
+.details-hero {
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 20px;
+
+    background: white;
+
+    border: 1px solid var(--border);
+
+    border-radius: 18px;
+
+    padding: 30px;
+
+    margin-bottom: 35px;
+
+    box-shadow:
+        0 10px 30px rgba(15, 23, 42, .05);
+
+}
+
+.details-icon {
+
+    width: 64px;
+
+    height: 64px;
+
+    flex-shrink: 0;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    border-radius: 16px;
+
+    background: #eef2ff;
+
+    font-size: 1.8rem;
+
+}
+
+.details-hero h1 {
+
+    margin-bottom: 8px;
+
+    font-size: 2rem;
+
+}
+
+.details-hero p {
+
+    color: var(--text-light);
+
+}
+
+@media (max-width: 700px) {
+
+.chapter-card {
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: space-between;
+
+    gap: 25px;
+
+    width: 100%;
+
+    background: white;
+
+    border: 1px solid var(--border);
+
+    border-radius: 16px;
+
+    padding: 22px 24px;
+
+    box-shadow:
+        0 6px 20px rgba(15, 23, 42, .04);
+
+    transition:
+        transform .2s ease,
+        box-shadow .2s ease,
+        border-color .2s ease;
+
+}
+
+.chapter-card:hover {
+
+    transform: translateY(-2px);
+
+    border-color: #c7d2fe;
+
+    box-shadow:
+        0 12px 30px rgba(15, 23, 42, .08);
+
+}
+
+    .chapter-actions {
+
+        width: 100%;
 
         flex-direction: column;
 
     }
 
-    button {
+    .chapter-actions button {
+
+        width: 100%;
+
+    }
+
+      .page-card {
+
+        flex-direction: column;
+
+    }
+
+    .page-actions {
+
+        width: 100%;
+
+        flex-direction: column;
+
+    }
+
+    .page-actions button {
 
         width: 100%;
 
     }
 
 }
+.chapter-info h3 {
 
-/* Book Details */
+    margin-bottom: 6px;
+
+    font-size: 1.05rem;
+
+}
+
+.chapter-info p {
+
+    color: var(--text-light);
+
+    font-size: .9rem;
+
+    line-height: 1.5;
+
+}
+
+.chapter-actions {
+
+    display: flex;
+
+    gap: 8px;
+
+    flex-shrink: 0;
+
+}
 
 .chapters-list {
 
@@ -201,337 +755,356 @@ button:hover {
 
     gap: 16px;
 
-}
-
-#back-button {
-
-    margin-bottom: 25px;
-
-    background: #6b7280;
-
-}
-
-#back-button:hover {
-
-    background: #4b5563;
+    width: 100%;
 
 }
 
 .chapter-card {
 
-    background: white;
-
-    padding: 20px;
-
-    border-radius: 10px;
-
-    box-shadow: 0 3px 10px rgba(0,0,0,.08);
-
-}
-
-.chapter-card h3 {
-
-    margin-bottom: 10px;
-
-}
-
-.chapter-card p {
-
-    margin-bottom: 12px;
-
-    color: #666;
-
-}
-
-.chapter-card small {
-
-    display: block;
-
-    margin-bottom: 16px;
-
-    color: #888;
-
-}
-
-.chapter-form {
-    background: white;
-    padding: 24px;
-    border-radius: 10px;
-    box-shadow: 0 4px 12px rgba(0,0,0,.08);
-}
-
-.chapter-form form {
     display: flex;
-    flex-direction: column;
-    gap: 12px;
-}
 
-.chapter-card button:not(:last-child) {
-    margin-right: 10px;
-}
+    align-items: center;
 
-.chapter-card button {
-    margin-top: 15px;
-}
+    justify-content: space-between;
 
-.chapter-form-section form {
-    display: flex;
-    flex-direction: column;
-    gap: 15px;
-}
+    gap: 25px;
 
-/* ===========================
-   Responsive
-=========================== */
-
-@media (max-width: 768px) {
-
-    .container {
-
-        margin: 20px;
-        padding: 0;
-
-    }
-
-    .chapter-card {
-
-        padding: 16px;
-
-    }
-
-    .chapter-card button {
-
-        width: 100%;
-        margin-right: 0;
-        margin-top: 10px;
-
-    }
-
-    .chapter-card button:not(:last-child) {
-
-        margin-bottom: 8px;
-
-    }
-
-    #back-button {
-
-        width: 100%;
-        margin-bottom: 20px;
-
-    }
-
-    .chapter-form {
-
-        padding: 18px;
-
-    }
-
-    .chapter-form-section form {
-
-        gap: 12px;
-
-    }
-
-    input,
-    textarea,
-    select,
-    button {
-
-        font-size: 16px;
-
-    }
-
-}
-
-/* ===========================
-   Page Details
-=========================== */
-
-.chapter-details {
+    width: 100%;
 
     background: white;
 
-    padding: 24px;
+    border: 1px solid var(--border);
 
-    border-radius: 10px;
+    border-radius: 16px;
 
-    box-shadow: 0 4px 12px rgba(0,0,0,.08);
+    padding: 22px 24px;
 
-    margin-bottom: 35px;
+    box-shadow:
+        0 6px 20px rgba(15, 23, 42, .04);
 
-}
-
-.chapter-details h1 {
-
-    text-align: left;
-
-    margin-bottom: 15px;
+    transition:
+        transform .2s ease,
+        box-shadow .2s ease,
+        border-color .2s ease;
 
 }
 
-.chapter-details p {
+.chapter-card:hover {
 
-    color: #555;
+    transform: translateY(-2px);
 
-    line-height: 1.6;
+    border-color: #c7d2fe;
 
-}
-
-
-/* ===========================
-   Page Form
-=========================== */
-
-.page-form-section {
-
-    background: white;
-
-    padding: 24px;
-
-    border-radius: 10px;
-
-    box-shadow: 0 4px 12px rgba(0,0,0,.08);
-
-    margin-bottom: 35px;
+    box-shadow:
+        0 12px 30px rgba(15, 23, 42, .08);
 
 }
 
-.page-form-section form {
-
-    display: flex;
-
-    flex-direction: column;
-
-    gap: 15px;
-
-}
-
-
-/* ===========================
-   Pages List
-=========================== */
-
-.pages-list {
-
-    display: flex;
-
-    flex-direction: column;
-
-    gap: 16px;
-
-}
-
-
-/* ===========================
-   Page Card
-=========================== */
+/* ==========================
+   PAGE CARD
+========================== */
 
 .page-card {
 
+    display: flex;
+
+    align-items: flex-start;
+
+    justify-content: space-between;
+
+    gap: 25px;
+
     background: white;
 
-    margin-bottom: 20px;
+    border: 1px solid var(--border);
 
-    padding: 20px;
+    border-radius: 16px;
 
-    border-radius: 10px;
+    padding: 22px 24px;
 
-    box-shadow: 0 3px 10px rgba(0,0,0,.08);
+    margin-bottom: 14px;
 
-}
+    box-shadow:
+        0 6px 20px rgba(15, 23, 42, .04);
 
-.page-card h3 {
-
-    margin-bottom: 10px;
-
-}
-
-.page-card p {
-
-    margin-bottom: 12px;
-
-    color: #666;
+    transition:
+        transform .2s ease,
+        box-shadow .2s ease,
+        border-color .2s ease;
 
 }
 
-.page-card small {
+.page-card:hover {
+
+    transform: translateY(-2px);
+
+    border-color: #c7d2fe;
+
+    box-shadow:
+        0 12px 30px rgba(15, 23, 42, .08);
+
+}
+
+.page-info {
+
+    min-width: 0;
+
+}
+
+.page-label {
 
     display: block;
 
-    margin-bottom: 16px;
+    margin-bottom: 6px;
 
-    color: #888;
+    color: var(--primary);
 
-}
+    font-size: .75rem;
 
-.page-card button:not(:last-child) {
+    font-weight: 700;
 
-    margin-right: 10px;
+    text-transform: uppercase;
 
-}
-
-.page-card button {
-
-    margin-top: 15px;
+    letter-spacing: .06em;
 
 }
 
-/* ===========================
-   Chapter Page - Responsive
-=========================== */
+.page-info h3 {
 
-@media (max-width: 768px) {
+    margin-bottom: 8px;
 
-    .container {
+    font-size: 1.05rem;
 
-        margin: 20px;
-        padding: 0;
+}
 
-    }
+.page-info p {
 
-    .chapter-details,
-    .page-form-section,
-    .page-card {
+    color: var(--text-light);
+
+    line-height: 1.6;
+
+    white-space: pre-wrap;
+
+}
+
+.page-actions {
+
+    display: flex;
+
+    gap: 8px;
+
+    flex-shrink: 0;
+
+}
+
+/* ========================================
+   FORMS
+======================================== */
+
+.content-section {
+
+    margin-bottom: 32px;
+
+}
+
+
+/* ========================================
+   FORM CONTAINER
+======================================== */
+
+.content-section form {
+
+    display: flex;
+
+    flex-direction: column;
+
+    gap: 8px;
+
+    background: #ffffff;
+
+    border: 1px solid var(--border);
+
+    border-radius: 16px;
+
+    padding: 24px;
+
+    box-shadow:
+        0 6px 20px rgba(15, 23, 42, 0.04);
+
+}
+
+
+/* ========================================
+   FORM LABELS
+======================================== */
+
+.content-section form label {
+
+    margin-top: 8px;
+
+    color: var(--text);
+
+    font-size: 0.85rem;
+
+    font-weight: 600;
+
+}
+
+
+/* ========================================
+   FORM CONTROLS
+======================================== */
+
+.content-section form input,
+.content-section form textarea,
+.content-section form select {
+
+    width: 100%;
+
+    padding: 12px 14px;
+
+    border: 1px solid var(--border);
+
+    border-radius: 10px;
+
+    background: #ffffff;
+
+    color: var(--text);
+
+    font-family: inherit;
+
+    font-size: 0.95rem;
+
+    outline: none;
+
+    transition:
+        border-color 0.2s ease,
+        box-shadow 0.2s ease,
+        background-color 0.2s ease;
+
+}
+
+
+/* ========================================
+   TEXTAREA
+======================================== */
+
+.content-section form textarea {
+
+    min-height: 120px;
+
+    resize: vertical;
+
+    line-height: 1.5;
+
+}
+
+
+/* ========================================
+   PLACEHOLDER
+======================================== */
+
+.content-section form input::placeholder,
+.content-section form textarea::placeholder {
+
+    color: #94a3b8;
+
+}
+
+
+/* ========================================
+   FOCUS
+======================================== */
+
+.content-section form input:focus,
+.content-section form textarea:focus,
+.content-section form select:focus {
+
+    border-color: var(--primary);
+
+    box-shadow:
+        0 0 0 3px rgba(37, 99, 235, 0.10);
+
+}
+
+
+/* ========================================
+   INVALID REQUIRED FIELDS
+======================================== */
+
+.content-section form input:invalid:not(:placeholder-shown),
+.content-section form textarea:invalid:not(:placeholder-shown),
+.content-section form select:invalid {
+
+    border-color: #f59e0b;
+
+}
+
+
+/* ========================================
+   FORM BUTTON
+======================================== */
+
+.content-section form button[type="submit"] {
+
+    width: 100%;
+
+    margin-top: 12px;
+
+    padding: 13px 18px;
+
+    border: none;
+
+    border-radius: 10px;
+
+    background: var(--primary);
+
+    color: white;
+
+    font-family: inherit;
+
+    font-size: 0.95rem;
+
+    font-weight: 600;
+
+    cursor: pointer;
+
+    transition:
+        background-color 0.2s ease,
+        transform 0.2s ease,
+        box-shadow 0.2s ease;
+
+}
+
+
+.content-section form button[type="submit"]:hover {
+
+    background: var(--primary-dark);
+
+    transform: translateY(-1px);
+
+    box-shadow:
+        0 6px 14px rgba(37, 99, 235, 0.20);
+
+}
+
+
+.content-section form button[type="submit"]:active {
+
+    transform: translateY(0);
+
+}
+
+
+/* ========================================
+   FORM RESPONSIVE
+======================================== */
+
+@media (max-width: 700px) {
+
+    .content-section form {
 
         padding: 18px;
-
-    }
-
-    #back-button {
-
-        width: 100%;
-
-        margin-bottom: 20px;
-
-    }
-
-    #page-form {
-
-        gap: 12px;
-
-    }
-
-    #page-form input,
-    #page-form textarea,
-    #page-form button {
-
-        width: 100%;
-
-    }
-
-    .page-card button {
-
-        width: 100%;
-
-        margin-right: 0;
-
-        margin-top: 10px;
-
-    }
-
-    .page-card button:not(:last-child) {
-
-        margin-bottom: 8px;
 
     }
 

@@ -74,61 +74,88 @@ export default function BookForm({
 
     return (
 
-        <form onSubmit={handleSubmit}>
+    <aside className="book-form-card">
 
-            <input
-                type="text"
-                placeholder="Title"
-                required
-                value={title}
-                onChange={(e) =>
-                    setTitle(e.target.value)
-                }
-            />
+        <h2>
+            {editingBook
+                ? "Edit Book"
+                : "Create Book"}
+        </h2>
 
-            <br />
+        <form
+            className="book-form"
+            onSubmit={handleSubmit}
+        >
 
-            <textarea
-                placeholder="Description"
-                required
-                value={description}
-                onChange={(e) =>
-                    setDescription(e.target.value)
-                }
-            />
+            <div className="form-group">
 
-            <br />
+                <label>Title</label>
 
-            <select
-                value={visibility}
-                required
-                onChange={(e) =>
-                    setVisibility(e.target.value)
-                }
+                <input
+                    type="text"
+                    placeholder="Book title"
+                    required
+                    value={title}
+                    onChange={(e) =>
+                        setTitle(e.target.value)
+                    }
+                />
+
+            </div>
+
+            <div className="form-group">
+
+                <label>Description</label>
+
+                <textarea
+                    rows={5}
+                    placeholder="Write a short description..."
+                    required
+                    value={description}
+                    onChange={(e) =>
+                        setDescription(e.target.value)
+                    }
+                />
+
+            </div>
+
+            <div className="form-group">
+
+                <label>Visibility</label>
+
+                <select
+                    value={visibility}
+                    onChange={(e) =>
+                        setVisibility(e.target.value)
+                    }
+                >
+
+                    <option value="private">
+                        Private
+                    </option>
+
+                    <option value="public">
+                        Public
+                    </option>
+
+                </select>
+
+            </div>
+
+            <button
+                className="primary-button"
+                type="submit"
             >
-                <option value="private">
-                    Private
-                </option>
-
-                <option value="public">
-                    Public
-                </option>
-
-            </select>
-
-            <br />
-
-            <button type="submit">
 
                 {editingBook
-
                     ? "Update Book"
-
                     : "Create Book"}
 
             </button>
 
         </form>
 
-    );
+    </aside>
+
+);
 }

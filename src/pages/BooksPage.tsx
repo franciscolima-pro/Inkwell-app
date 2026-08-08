@@ -4,6 +4,7 @@ import { useNavigate } from "react-router-dom";
 import Book from "../models/Book";
 import BookCard from "../components/BookCard";
 import BookForm from "../components/BookForm";
+import Header from "../components/Header";
 
 export default function BooksPage() {
 
@@ -70,28 +71,37 @@ const handleSaveBook = async (
 };
 
     return (
+        <>
+
+        <Header />
         
-        <main>
+        <main  className="container">
             <h1>Inkwell App</h1>
+            <p className="page-subtitle">
+                Create, organize and manage your digital library.
+            </p>
 
             <h2>Books</h2>
 
-            <BookForm
-              onSubmit={handleSaveBook}
-              editingBook={editingBook}
-            />
+            <div className="dashboard">
+                <BookForm
+                onSubmit={handleSaveBook}
+                editingBook={editingBook}
+                />
 
-            <section>
-                {books.map(book => (
-                    <BookCard
-                        key={book.id}
-                        book={book}
-                        onOpen={handleOpen}
-                        onEdit={handleEdit}
-                        onDelete={handleDelete}
-                    />
-                ))}
-            </section>
+                <section className="books-list">
+                    {books.map(book => (
+                        <BookCard
+                            key={book.id}
+                            book={book}
+                            onOpen={handleOpen}
+                            onEdit={handleEdit}
+                            onDelete={handleDelete}
+                        />
+                    ))}
+                </section>
+            </div>
         </main>
+    </>
     );
 }

@@ -1,45 +1,70 @@
 import Book from "../models/Book";
-import { useNavigate } from "react-router-dom";
 
 interface BookCardProps {
     book: Book;
     onEdit: (book: Book) => void;
-    onOpen: (id: string) => void;
     onDelete: (id: string) => void;
+    onOpen: (id: string) => void;
 }
 
-export default function BookCard({ book, onEdit, onDelete, onOpen }: BookCardProps) {
-    const navigate = useNavigate();
+export default function BookCard({
+    book,
+    onEdit,
+    onDelete,
+    onOpen
+}: BookCardProps) {
+
     return (
+
         <article className="book-card">
-            <h3>{book.title}</h3>
 
-            <p>{book.description ?? ""}</p>
+            <div className="book-header">
 
-            <small>
-                Visibility: {book.visibility ?? "private"}
-            </small>
-            {book.id && (
-                <>
-                    <button
-                        onClick={() => {
-                            if (book.id) {
-                                navigate(`/books/${book.id}`);
-                            }
-                        }}
-                    >
-                        Open
-                    </button>
+                <div>
 
-                    <button onClick={() => onEdit(book)}>
-                        Edit
-                    </button>
+                    <h3>📖 {book.title}</h3>
 
-                    <button onClick={() => onDelete(book.id!)}>
-                        Delete
-                    </button>
-                </>
-            )}
+                    <p>
+                        {book.description || "No description provided."}
+                    </p>
+
+                </div>
+
+                <span
+                    className={`badge ${book.visibility}`}
+                >
+                    {book.visibility}
+                </span>
+
+            </div>
+
+            <div className="book-actions">
+
+                <button
+                    className="open-btn"
+                    onClick={() => onOpen(book.id!)}
+                >
+                    Open
+                </button>
+
+                <button
+                    className="edit-btn"
+                    onClick={() => onEdit(book)}
+                >
+                    Edit
+                </button>
+
+                <button
+                    className="delete-btn"
+                    onClick={() => onDelete(book.id!)}
+                >
+                    Delete
+                </button>
+
+            </div>
+
         </article>
+
     );
+
 }
